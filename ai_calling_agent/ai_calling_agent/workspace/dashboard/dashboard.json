@@ -1,0 +1,85 @@
+{
+ "app": "ai_calling_agent",
+ "charts": [
+  {
+   "chart_name": "Lead Status Distribution",
+   "label": "Leads by Status"
+  },
+  {
+   "chart_name": "Daily Call Activity",
+   "label": "Calls per Day"
+  }
+ ],
+ "content": "[{\"id\":\"7mnt9J_jGa\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Launch AI Agent App\",\"col\":3}},{\"id\":\"ZdXwL3XWCg\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Dashboard</span>\",\"col\":12}},{\"id\":\"EcBqLj0EaO\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Calls\",\"col\":4}},{\"id\":\"O3Oqf_J26M\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Hot Leads\",\"col\":4}},{\"id\":\"hSVNqcbd3f\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Avg Call Duration\",\"col\":4}},{\"id\":\"-bhP0CLPKN\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Leads by Status\",\"col\":12}},{\"id\":\"Rul3AfJjyd\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Calls per Day\",\"col\":12}},{\"id\":\"qkpajmr4N4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"View All Leads\",\"col\":4}},{\"id\":\"Qk0faMQeXx\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Find New Leads\",\"col\":4}},{\"id\":\"wNvsI4a63V\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Recent Call Logs\",\"col\":4}}]",
+ "creation": "2025-12-04 16:47:30.636249",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "dashboard-list",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Dashboard",
+ "link_type": "DocType",
+ "links": [],
+ "modified": "2025-12-09 15:24:22.708320",
+ "modified_by": "Administrator",
+ "module": "AI Calling Agent",
+ "name": "Dashboard",
+ "number_cards": [
+  {
+   "label": "Total Calls",
+   "number_card_name": "Total Calls"
+  },
+  {
+   "label": "Hot Leads",
+   "number_card_name": "Hot Leads Generated"
+  },
+  {
+   "label": "Avg Call Duration",
+   "number_card_name": "Average Call Duration"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 2.0,
+ "shortcuts": [
+  {
+   "color": "Red",
+   "doc_view": "List",
+   "label": "View All Leads",
+   "link_to": "Lead",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Launch AI Agent App",
+   "type": "URL",
+   "url": "/ai_calling_agent"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Find New Leads",
+   "link_to": "Lead Search",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Recent Call Logs",
+   "link_to": "AI Call Log",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Dashboard",
+ "type": "Workspace"
+}

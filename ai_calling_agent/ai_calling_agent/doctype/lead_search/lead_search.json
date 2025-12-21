@@ -1,0 +1,86 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-05 00:00:08.400154",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_ob6s",
+  "job_title",
+  "location",
+  "industry",
+  "cb_1",
+  "search_button",
+  "sb_1",
+  "results_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_ob6s",
+   "fieldtype": "Section Break",
+   "label": "Search for Potential Leads"
+  },
+  {
+   "fieldname": "job_title",
+   "fieldtype": "Data",
+   "label": "Job Title"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fieldname": "industry",
+   "fieldtype": "Data",
+   "label": "Industry"
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Click on the button to search for leads with the mentioned criteria",
+   "fieldname": "search_button",
+   "fieldtype": "Button",
+   "label": "Search Leads"
+  },
+  {
+   "fieldname": "sb_1",
+   "fieldtype": "Section Break",
+   "label": "Search Results"
+  },
+  {
+   "description": "We will inject the table here",
+   "fieldname": "results_html",
+   "fieldtype": "HTML",
+   "label": "Results"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-12-05 00:11:48.893650",
+ "modified_by": "Administrator",
+ "module": "AI Calling Agent",
+ "name": "Lead Search",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
