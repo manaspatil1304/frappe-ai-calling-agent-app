@@ -37,6 +37,11 @@ const routes = [
     name: 'BulkCalling',
     component: () => import('./pages/BulkCalling.vue'),
   },
+  {
+    path: '/bulk-emailing',
+    name: 'BulkEmailing',
+    component: () => import('./pages/BulkEmailing.vue'),
+  },
 ]
 
 let router = createRouter({

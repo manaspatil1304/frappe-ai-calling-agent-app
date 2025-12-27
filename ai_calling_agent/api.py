@@ -471,3 +471,140 @@ def process_bulk_queue(member_list):
         user=frappe.session.user
     )
 
+# -------------------------
+# EMAIL GROUP MANAGEMENT
+# -------------------------
+
+@frappe.whitelist()
+def get_email_groups():
+    """Fetches the list of email groups for the frontend."""
+    # UPDATED: Fetching 'AI Email Group' instead of 'Email Group'
+    return frappe.get_all("AI Email Group", fields=["name", "title", "creation"])
+
+@frappe.whitelist()
+def create_email_group(title, members):
+    """
+    Creates a new Email Group manually from a list of contacts.
+    """
+    try:
+        # UPDATED: Creating 'AI Email Group'
+        doc = frappe.new_doc("AI Email Group")
+        doc.title = title
+        
+        import json
+        if isinstance(members, str):
+            members = json.loads(members)
+            
+        for m in members:
+            if m.get("email"):
+                # UPDATED: Appending to 'members' child table
+                doc.append("members", {
+                    "contact_name": m.get("name"),
+                    "email": m.get("email"),
+                    "status": "Pending"
+                })
+            
+        doc.insert()
+        return {"status": "success", "message": f"Created group '{title}'"}
+    except Exception as e:
+        frappe.log_error(f"Create Group Error: {str(e)}")
+        return {"status": "error", "message": str(e)}
+
+@frappe.whitelist()
+def import_call_group_to_email(call_group_name, new_title):
+    """
+    Creates a new AI Email Group by importing members from an existing Call Group.
+    """
+    try:
+        if not frappe.db.exists("Call Group", call_group_name):
+            frappe.throw("Call Group not found")
+            
+        call_group = frappe.get_doc("Call Group", call_group_name)
+        
+        # UPDATED: Creating 'AI Email Group'
+        new_doc = frappe.new_doc("AI Email Group")
+        new_doc.title = new_title
+        
+        added_count = 0
+        
+        for member in call_group.members:
+            email = None
+            
+            # Lookup logic (same as before)
+            if member.contact_name:
+                email = frappe.db.get_value("Contact", member.contact_name, "email_id")
+            
+            if not email and member.phone_number:
+                 email = frappe.db.get_value("Contact", {"mobile_no": member.phone_number}, "email_id")
+                 if not email:
+                     email = frappe.db.get_value("Contact", {"phone": member.phone_number}, "email_id")
+            
+            if email:
+                new_doc.append("members", {
+                    "contact_name": member.contact_name or "Unknown",
+                    "email": email,
+                    "status": "Pending"
+                })
+                added_count += 1
+                
+        if added_count == 0:
+            frappe.throw("No valid email addresses found in this Call Group.")
+            
+        new_doc.insert()
+        return {"status": "success", "message": f"Imported {added_count} contacts into '{new_title}'."}
+        
+    except Exception as e:
+        frappe.log_error(f"Import Error: {str(e)}")
+        return {"status": "error", "message": str(e)}
+
+# -------------------------
+# BULK EMAIL TRIGGER
+# -------------------------
+
+@frappe.whitelist()
+def trigger_email_campaign(group_name, subject, message):
+    try:
+        # UPDATED: Fetching 'AI Email Group'
+        group = frappe.get_doc("AI Email Group", group_name)
+        
+        if not group.members:
+            return {"status": "error", "message": "Group is empty."}
+
+        frappe.enqueue(
+            method=process_email_queue,
+            queue='long',
+            timeout=3000,
+            member_list=[m.as_dict() for m in group.members],
+            subject=subject,
+            message=message
+        )
+        return {"status": "success", "message": "Campaign started in background."}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+def process_email_queue(member_list, subject, message):
+    import time
+    success_count = 0
+    
+    for member in member_list:
+        email = member.get('email')
+        if not email: continue
+        
+        try:
+            frappe.sendmail(
+                recipients=[email],
+                subject=subject,
+                message=message,
+                reference_doctype="Contact", 
+                reference_name=member.get('contact_name')
+            )
+            time.sleep(1) 
+            success_count += 1
+        except Exception as e:
+            frappe.log_error(f"Email Failed to {email}: {str(e)}", "Bulk Email Error")
+            
+    frappe.publish_realtime(
+        event='msgprint',
+        message=f'Email Campaign Finished. Sent {success_count} emails.',
+        user=frappe.session.user
+    )

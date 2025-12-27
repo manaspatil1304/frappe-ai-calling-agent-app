@@ -142,6 +142,7 @@ const navItems = [
 	{ name: 'LeadGenerator', path: '/lead-generator', label: 'Lead Generator', icon: 'search' },
 	{ name: 'Contacts', path: '/contacts', label: 'Contacts', icon: 'users' },
 	{ name: 'BulkCalling', path: '/bulk-calling', label: 'Bulk Calling', icon: 'layers' },
+	{ name: 'BulkEmailing', path: '/bulk-emailing', label: 'Bulk Emailing', icon: 'mail' },
 	{ name: 'CallLogs', path: '/call-logs', label: 'Call Logs', icon: 'phone' },
 ]
 </script>
