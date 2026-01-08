@@ -8,7 +8,7 @@ import { webserver_port } from '../../../sites/common_site_config.json'
 export default defineConfig({
   plugins: [vue()],
   server: {
-    port: 8001,
+    port: 8000,
     proxy: getProxyOptions({ port: webserver_port }),
   },
   resolve: {
